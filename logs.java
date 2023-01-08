@@ -44,7 +44,7 @@ final class RockPaperScissors {
 
         // input
         final Scanner userInput = new Scanner(System.in);
-        System.out.println("Decide on a move (rock, paper, or scissors): ");
+        System.out.println("Enter rock, paper, or scissors: ");
         final String player = userInput.nextLine();
         // process & output
         if (randomNumber == 1) {
