@@ -1,27 +1,33 @@
 /*
- * The program shows how to get input
- *   and deal with numbers.
- *
- * @author  Huzaifa Khalid
- * @version 1.0
- * @since   2022-09-14
- */
+* This program runs Rock Paper Scissors.
+*
+* @author  Huzaifa Khalid
+* @version 1.0
+* @since   2023-01-08
+*/
 
-import java.io.Console;
+import java.util.Scanner;
 
 /**
-* This is the log calculator program.
+* This is a Rock Paper Scissors game.
 */
-final class LogCalculator {
-    /**
-     * Maximum capacity of the truck
-     */
-    public static final float truckCapacity = 1100;
+final class RockPaperScissors {
 
     /**
-     * Average weight of maple logs
-     */
-    public static final float mapleWeight = 20;
+    * Constant assigned to 1.
+    */
+    public static final int ROCK = 1;
+
+    /**
+    * Constant assigned to 2.
+    */
+    public static final int PAPER = 2;
+
+    /**
+    * Constant assigned to 3.
+    */
+    public static final int SCISSORS = 3;
+
     /**
     * Prevent instantiation.
     * Throw an exception IllegalStateException.
@@ -30,7 +36,7 @@ final class LogCalculator {
     * @throws IllegalStateException
     *
     */
-    private LogCalculator() {
+    private RockPaperScissors() {
         throw new IllegalStateException("Cannot be instantiated");
     }
 
@@ -40,17 +46,52 @@ final class LogCalculator {
     * @param args No args will be used
     */
     public static void main(final String[] args) {
+        // input
+        System.out.println("Welcome to Rock Paper Scissors!");
+        final Scanner gameObj = new Scanner(System.in);
+        System.out.println("Enter 1 for Rock, 2 for Paper, 3 for Scissors: ");
 
-        final Console console = System.console();
-        final String logLengthString = console.readLine(
-                "How long are the logs(m) : ");
+        /*
+        * Try-catch to ensure bad
+        * input won't crash the program
+        */
+        try {
+            final float userHand = gameObj.nextInt();
 
-        final float logLength = Float.valueOf(logLengthString);
+            // random module
+            final int min = ROCK;
+            final int max = SCISSORS;
+            final int randomHand = (int) ((Math.random() * max) + min);
 
-        final float logAmount = truckCapacity / (mapleWeight * logLength);
+            // process
+            if (userHand == randomHand) {
+                System.out.println("\nYou tie!");
+            } else if ((userHand == ROCK & randomHand == SCISSORS)
+                    || (userHand == PAPER & randomHand == ROCK)
+                    || (userHand == SCISSORS & randomHand == PAPER)) {
+                System.out.println("\nYou win!");
+            } else if ((userHand == ROCK & randomHand == PAPER)
+                    || (userHand == PAPER & randomHand == SCISSORS)
+                    || (userHand == SCISSORS & randomHand == ROCK)) {
+                System.out.println("\nYou lose!");
+            } else {
+                System.out.println("\nInvalid Input, make sure it's from 1-3.");
+            }
 
-        // print out answer
-        System.out.println(logAmount + " Logs ca fit in the truck ");
-        System.out.println("\nDone.");
+            // output
+            if (randomHand == ROCK) {
+                System.out.println("The opponent chose Rock.");
+            } else if (randomHand == PAPER) {
+                System.out.println("The opponent chose Paper.");
+            } else if (randomHand == SCISSORS) {
+                System.out.println("The opponent chose Scissors.");
+            } else {
+                System.out.println("The RNG messed up. Sorry.");
+            }
+        } catch (java.util.InputMismatchException ex) {
+            System.out.println("\nInvalid Input.");
+        } finally {
+            System.out.println("\nDone.");
+        }
     }
 }
