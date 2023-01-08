@@ -1,5 +1,6 @@
 /*
-* This program runs Rock Paper Scissors.
+*  This program is based on the Rock-Paper-Scissors game
+ *     with a computer opponent.
 *
 * @author  Huzaifa Khalid
 * @version 1.0
@@ -9,24 +10,9 @@
 import java.util.Scanner;
 
 /**
-* This is a Rock Paper Scissors game.
+ * This function determines the winner between the user and computer.
 */
 final class RockPaperScissors {
-
-    /**
-    * Constant assigned to 1.
-    */
-    public static final int ROCK = 1;
-
-    /**
-    * Constant assigned to 2.
-    */
-    public static final int PAPER = 2;
-
-    /**
-    * Constant assigned to 3.
-    */
-    public static final int SCISSORS = 3;
 
     /**
     * Prevent instantiation.
@@ -45,53 +31,50 @@ final class RockPaperScissors {
     *
     * @param args No args will be used
     */
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
+
+        final int max = 3;
+        final int min = 1;
+        final int randomNumber = (int) (Math.random() * max + min);
+        final String rock = "rock";
+        final String paper = "paper";
+        final String scissors = "scissors";
+        final String computerDecision = "\nThe computer chose ";
+        final String computer;
+
         // input
-        System.out.println("Welcome to Rock Paper Scissors!");
-        final Scanner gameObj = new Scanner(System.in);
-        System.out.println("Enter 1 for Rock, 2 for Paper, 3 for Scissors: ");
-
-        /*
-        * Try-catch to ensure bad
-        * input won't crash the program
-        */
-        try {
-            final float userHand = gameObj.nextInt();
-
-            // random module
-            final int min = ROCK;
-            final int max = SCISSORS;
-            final int randomHand = (int) ((Math.random() * max) + min);
-
-            // process
-            if (userHand == randomHand) {
-                System.out.println("\nYou tie!");
-            } else if ((userHand == ROCK & randomHand == SCISSORS)
-                    || (userHand == PAPER & randomHand == ROCK)
-                    || (userHand == SCISSORS & randomHand == PAPER)) {
-                System.out.println("\nYou win!");
-            } else if ((userHand == ROCK & randomHand == PAPER)
-                    || (userHand == PAPER & randomHand == SCISSORS)
-                    || (userHand == SCISSORS & randomHand == ROCK)) {
-                System.out.println("\nYou lose!");
-            } else {
-                System.out.println("\nInvalid Input, make sure it's from 1-3.");
-            }
-
-            // output
-            if (randomHand == ROCK) {
-                System.out.println("The opponent chose Rock.");
-            } else if (randomHand == PAPER) {
-                System.out.println("The opponent chose Paper.");
-            } else if (randomHand == SCISSORS) {
-                System.out.println("The opponent chose Scissors.");
-            } else {
-                System.out.println("The RNG messed up. Sorry.");
-            }
-        } catch (java.util.InputMismatchException ex) {
-            System.out.println("\nInvalid Input.");
-        } finally {
-            System.out.println("\nDone.");
+        final Scanner userInput = new Scanner(System.in);
+        System.out.println("Decide on a move (rock, paper, or scissors): ");
+        final String player = userInput.nextLine();
+        // process & output
+        if (randomNumber == 1) {
+            computer = rock;
+        } else if (randomNumber == 2) {
+            computer = paper;
+        } else {
+            computer = scissors;
         }
+
+        if (player.equals(computer)) {
+            System.out.println(computerDecision + computer);
+            System.out.println("\nTie.");
+        } else if (player.equals(rock) && computer.equals(paper)
+            || player.equals(paper) && computer.equals(scissors)
+            || player.equals(scissors)
+            && computer.equals(rock)) {
+            System.out.println(computerDecision + computer);
+            System.out.println("\nYou lost.");
+        } else if (player.equals(paper) && computer.equals(rock)
+            || player.equals(scissors) && computer.equals(rock)
+            || player.equals(rock)
+            && computer.equals(scissors)) {
+            System.out.println(computerDecision + computer);
+            System.out.println("\nYou win!");
+        } else {
+            System.out.println("\nSomething is not right.");
+        }
+        System.out.println("\nDone.");
+
     }
 }
+
